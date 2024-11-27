@@ -6,12 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { FiDollarSign, FiEye, FiPlay, FiSearch } from "react-icons/fi";
 
 const Example = () => {
-  return (
-
-     
-      <SwapColumnFeatures />
-
-  );
+  return <SwapColumnFeatures />;
 };
 
 const SwapColumnFeatures = () => {
@@ -21,7 +16,7 @@ const SwapColumnFeatures = () => {
     <section className="relative mx-auto max-w-[100vw]">
       <SlidingFeatureDisplay featureInView={featureInView} />
 
-      {/* Offsets the height of SlidingFeatureDisplay so that it renders on top of Content to start */}
+      {/* Offsets the height of SlidingFeatureDisplay */}
       <div className="-mt-[100vh] hidden md:block" />
 
       {features.map((s) => (
@@ -52,7 +47,7 @@ const SlidingFeatureDisplay = ({ featureInView }) => {
           stiffness: 400,
           damping: 25,
         }}
-        className="h-fit w-2/5 rounded-xl py-8 "
+        className="h-fit w-2/5 rounded-xl py-8"
       >
         <ExampleFeature featureInView={featureInView} />
       </motion.div>
@@ -61,41 +56,31 @@ const SlidingFeatureDisplay = ({ featureInView }) => {
 };
 
 const Content = ({ setFeatureInView, featureInView }) => {
-         const containerVariants = {
-           hidden: { opacity: 0 },
-           visible: {
-             opacity: 1,
-             transition: {
-               staggerChildren: 0.2, // Delay between each child's animation
-             },
-           },
-         };
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 },
+    },
+  };
 
-         // Children animation variants
-         const childVariants = {
-           hidden: { opacity: 0, y: 20 }, // Fade out and move down
-           visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }, // Fade in and move to original position
-         };
+  const childVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   const ref = useRef(null);
-  const isInView = useInView(ref, {
-    margin: "-150px",
-  });
+  const isInView = useInView(ref, { margin: "-150px" });
 
   useEffect(() => {
     if (isInView) {
       setFeatureInView(featureInView);
+      ref.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
-  }, [isInView]);
-    useEffect(() => {
-      if (isInView) {
-        setFeatureInView(featureInView);
-        // Auto scroll to center the content when it comes into view
-        ref.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }
-    }, [isInView]);
+  }, [isInView, setFeatureInView, featureInView]);
 
   return (
     <section
@@ -108,23 +93,23 @@ const Content = ({ setFeatureInView, featureInView }) => {
     >
       <div className="grid h-full w-full place-content-center px-4 py-12 md:w-2/5 md:px-8 md:py-8">
         <motion.div
-          variants={containerVariants} // Attach parent variants
-          initial="hidden" // Start in hidden state
-          whileInView="visible" // Animate to visible state when in view
-          viewport={{ amount: 0.1 }} // Trigger when 20% of the element is visible
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ amount: 0.1 }}
           className="flex flex-col gap-4 mb-10"
         >
           {featureInView.callout && (
             <motion.h4
-            variants={childVariants} // Attach child variants
+              variants={childVariants}
               className="text-gray-500 text-xl uppercase tracking-wider"
             >
-                {featureInView.callout}
+              {featureInView.callout}
             </motion.h4>
-            )}
+          )}
 
           <motion.h1
-            variants={childVariants} // Attach child variants
+            variants={childVariants}
             className="text-7xl font-bold text-[#645344]"
           >
             {featureInView.title}
@@ -143,9 +128,11 @@ const Content = ({ setFeatureInView, featureInView }) => {
           >
             {featureInView.description}
           </motion.p>
+
           <motion.ul>
-            {featureInView.points.map((point) => (
+            {featureInView.points.map((point, index) => (
               <motion.li
+                key={index}
                 variants={childVariants}
                 className="flex items-start text-gray-500 gap-2"
               >
@@ -169,14 +156,10 @@ const Content = ({ setFeatureInView, featureInView }) => {
 const ExampleFeature = ({ featureInView }) => {
   return (
     <div
-      initial={{ x: 100, opacity: 0 }}
-      whileInView={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ amount: 0.2 }}
       className={`bg-foreground bg-[url('/pattern.png')] h-screen flex ${
         featureInView.contentPosition === "l"
-          ? "rounded-l-[40px]" // Apply rounded-left only
-          : "rounded-r-[40px]" // Apply rounded-right only
+          ? "rounded-l-[40px]"
+          : "rounded-r-[40px]"
       }`}
     >
       <Image
@@ -184,9 +167,7 @@ const ExampleFeature = ({ featureInView }) => {
         width={700}
         height={700}
         className={`object-contain ${
-          featureInView.contentPosition === "l"
-            ? "-ml-[200px]" // For left-aligned content
-            : "ml-[200px]" // For right-aligned content
+          featureInView.contentPosition === "l" ? "-ml-[200px]" : "ml-[200px]"
         }`}
       />
     </div>
@@ -194,6 +175,7 @@ const ExampleFeature = ({ featureInView }) => {
 };
 
 export default Example;
+
 
 const features = [
   {

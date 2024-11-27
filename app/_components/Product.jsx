@@ -100,6 +100,7 @@ const Product = () => {
           src="/hero-img.png"
           width={700}
           height={700}
+          alt=""
           className="-ml-[200px] object-contain"
         />
       </motion.div>
