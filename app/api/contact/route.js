@@ -1,3 +1,5 @@
+//TODO: API not working, need to fix it
+
 import { NextResponse } from "next/server";
 const nodemailer = require("nodemailer");
 
@@ -9,7 +11,7 @@ export async function POST(request) {
 
   try {
     // Parse the incoming request body as JSON
-    const body = await request.json();
+    const body = await request.body;
     const { name, number, mail, companyName, message } = body;
 
     // Validate required fields

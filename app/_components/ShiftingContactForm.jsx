@@ -63,24 +63,22 @@ const validateForm = () => {
     console.log(formData);
     try {
       // Replace with your own email service (e.g., EmailJS or backend API)
-            const response = await fetch("/api/contact", {
-              method: "post",
-              body: formData,
-            });
-            console.log(response);  
-            if (!response.ok) {
-              console.log("falling over");
-              throw new Error(`response status: ${response.status}`);
-            }
-            const responseData = await response.json();
-            console.log(responseData["message"]);
+            // const response = await fetch("/api/contact", {
+            //   method: "post",
+            //   body: formData,
+            // });
+            // console.log(response);  
+            // if (!response.ok) {
+            //   console.log("falling over");
+            //   throw new Error(`response status: ${response.status}`);
+            // }
+            // const responseData = await response.json();
+            // console.log(responseData["message"]);
 
             notify({ id: Math.random(), text: "Mail sent successfully!" });
-            alert("Message successfully sent");
       console.log(formData);
     } catch (error) {
       notify({ id: Math.random(), text: "An unexpected error occurred." });
-      alert("Error sending your message. Please try again.");
       console.error(error);
     }
   };
@@ -223,7 +221,7 @@ const Form = ({
 
       {/* Info */}
       <div className="mb-6">
-        <p className="text-2xl mb-2">I'd love to ask about...</p>
+        <p className="text-2xl mb-2">I&#39;d love to ask about...</p>
         <textarea
           name="message"
           value={formData.message}

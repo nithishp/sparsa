@@ -37,7 +37,7 @@ const Notification = ({ text, id, removeNotif }) => {
     }, NOTIFICATION_TTL);
 
     return () => clearTimeout(timeoutRef);
-  }, []);
+  }, [removeNotif]);
 
   return (
     <motion.div
@@ -46,7 +46,7 @@ const Notification = ({ text, id, removeNotif }) => {
       animate={{ y: 0, scale: 1, opacity: 1 }}
       exit={{ y: -25, scale: 0.9, opacity: 0 }}
       transition={{ type: "spring" }}
-      className="p-4 w-80 flex items-start rounded-lg gap-2 text-sm font-medium shadow-lg text-white bg-foreground fixed z-50 bottom-4 right-4"
+      className="p-4 w-80 flex items-start rounded-lg gap-2 text-sm font-medium shadow-lg text-white border-2 border-white bg-foreground fixed z-50 bottom-4 right-4"
     >
       <FiAlertCircle className="text-3xl absolute -top-4 -left-4 p-2 rounded-full bg-white text-foreground shadow" />
       <span>{text}</span>
@@ -59,23 +59,3 @@ const Notification = ({ text, id, removeNotif }) => {
 
 export default StackedNotifications;
 
-const generateRandomNotif = () => {
-  const names = [
-    "John Anderson",
-    "Emily Peterson",
-    "Frank Daniels",
-    "Laura Williams",
-    "Donald Sanders",
-    "Tom Smith",
-    "Alexandra Black",
-  ];
-
-  const randomIndex = Math.floor(Math.random() * names.length);
-
-  const data = {
-    id: Math.random(),
-    text: `New notification from ${names[randomIndex]}`,
-  };
-
-  return data;
-};
