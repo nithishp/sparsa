@@ -5,7 +5,7 @@ const Footer = () => {
     <div className='w-screen h-[200px] bg-foreground'>
         <div className='flex flex-col justify-center items-center h-full'>
             <h1 className='font-extrabold text-5xl text-white'>Sparsa</h1>
-            <p className='text-white mt-5'>Developed by escape creatives © 2021 All Rights Reserved</p>
+            <p className='text-white mt-5 text-center'>Developed by escape creatives © 2021 All Rights Reserved</p>
         </div>
     </div>
   )

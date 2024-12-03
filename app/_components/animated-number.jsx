@@ -1,7 +1,7 @@
 "use client";
-import { cn } from "@/lib/utils";
 import { motion, SpringOptions, useSpring, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
+import {cn} from '../../lib/utils'
 
 
 

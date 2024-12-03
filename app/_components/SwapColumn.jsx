@@ -13,7 +13,7 @@ const SwapColumnFeatures = () => {
   const [featureInView, setFeatureInView] = useState(features[0]);
 
   return (
-    <section className="relative mx-auto max-w-[100vw]">
+    <section className="relative mx-auto max-w-[100vw]" id="products">
       <SlidingFeatureDisplay featureInView={featureInView} />
 
       {/* Offsets the height of SlidingFeatureDisplay */}
@@ -73,7 +73,8 @@ const Content = ({ setFeatureInView, featureInView }) => {
   const isInView = useInView(ref, { margin: "-150px" });
 
   useEffect(() => {
-    if (isInView) {
+    const isDesktop = window.innerWidth >= 768; // Check for desktop
+    if (isDesktop && isInView) {
       setFeatureInView(featureInView);
       ref.current?.scrollIntoView({
         behavior: "smooth",
@@ -114,7 +115,7 @@ const Content = ({ setFeatureInView, featureInView }) => {
           >
             {featureInView.title}
           </motion.h1>
-
+            <motion.img src={featureInView.img} variants={childVariants} alt={featureInView.title} className="md:hidden" />
           <motion.div variants={childVariants} className="flex gap-2 mt-3">
             <Heart className="text-foreground" />
             <p className="text-gray-500">
@@ -124,7 +125,7 @@ const Content = ({ setFeatureInView, featureInView }) => {
 
           <motion.p
             variants={childVariants}
-            className="text-gray-600 max-w-[30vw] mt-5"
+            className="text-gray-600 lg:max-w-[30vw] mt-5"
           >
             {featureInView.description}
           </motion.p>
@@ -163,9 +164,10 @@ const ExampleFeature = ({ featureInView }) => {
       }`}
     >
       <Image
-        src="/hero-img.png"
+        src={featureInView.img}
         width={700}
         height={700}
+        alt=" "
         className={`object-contain ${
           featureInView.contentPosition === "l" ? "-ml-[200px]" : "ml-[200px]"
         }`}
@@ -191,6 +193,7 @@ const features = [
     ],
     likes: 275,
     price: 250,
+    img:"/hero-img.png",
     contentPosition: "r", // Right alignment
   },
   {
@@ -206,6 +209,7 @@ const features = [
     ],
     likes: 154,
     price: 180,
+    img:"/cardamon.png",
     contentPosition: "l", // Left alignment
   },
   {
@@ -220,6 +224,7 @@ const features = [
     ],
     likes: 117,
     price: 200,
+    img:"/blackpepper.png",
     contentPosition: "r", // Right alignment
   },
   {
@@ -235,6 +240,7 @@ const features = [
     ],
     likes: 145,
     price: 300,
+    img:"/honey.png",
     contentPosition: "l", // Left alignment
   },
 ];

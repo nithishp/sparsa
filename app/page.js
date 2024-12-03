@@ -4,6 +4,7 @@ import Featured from "./_components/Featured";
 import Example from "./_components/SwapColumn";
 import Footer from "./_components/Footer";
 import AccordionSolutions from "./_components/AccordionSolutions";
+import ShiftingContactForm from "./_components/ShiftingContactForm";
 
 export default function Home() {
   return (
@@ -12,7 +13,8 @@ export default function Home() {
       <Product />
       {/* <Featured/> */}
       <Example/>
-      <AccordionSolutions/>
+      <ShiftingContactForm/>
+      {/* <AccordionSolutions/> */}
       <Footer/>
     </main>
   );

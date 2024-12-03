@@ -7,7 +7,7 @@ const AccordionSolutions = () => {
   const [open, setOpen] = useState(solutions[0].id);
   const imgSrc = solutions.find((s) => s.id === open)?.imgSrc;
   return (
-    <section className="px-8 py-12 bg-white">
+    <section className="px-8 py-12 bg-white" id="faq">
       <div className="w-full max-w-5xl mx-auto grid gap-8 grid-cols-1 lg:grid-cols-[1fr_350px]">
         <div>
           <h3 className="text-4xl font-bold mb-8">Who are our customers ?</h3>
