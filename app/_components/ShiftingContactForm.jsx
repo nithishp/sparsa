@@ -3,10 +3,12 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import StackedNotifications from "./StackedNotifications";
+import { Loader2 } from "lucide-react";
 
 const ShiftingContactForm = () => {
   const [selected, setSelected] = useState("individual");
   const [notify, setNotify] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     number:""  ,
@@ -63,23 +65,35 @@ const validateForm = () => {
     console.log(formData);
     try {
       // Replace with your own email service (e.g., EmailJS or backend API)
-            // const response = await fetch("/api/contact", {
-            //   method: "post",
-            //   body: formData,
-            // });
-            // console.log(response);  
-            // if (!response.ok) {
-            //   console.log("falling over");
-            //   throw new Error(`response status: ${response.status}`);
-            // }
-            // const responseData = await response.json();
-            // console.log(responseData["message"]);
+      setIsLoading(true);
+            const response = await fetch("/api/contact", {
+              method: "post",
+              body: JSON.stringify(formData),
+            });
+            
+            console.log(response);  
+            if (!response.ok) {
+              console.log("falling over");
+              throw new Error(`response status: ${response.status}`);
+            }
+            const responseData = await response.json();
+            console.log(responseData["message"]);
 
             notify({ id: Math.random(), text: "Mail sent successfully!" });
       console.log(formData);
     } catch (error) {
       notify({ id: Math.random(), text: "An unexpected error occurred." });
       console.error(error);
+    } finally {
+      setIsLoading(false);
+      setFormData({
+        name: "",
+        number: "",
+        mail: "",
+        companyName: "",
+        message: "",
+      });
+      setErrors({});
     }
   };
 
@@ -96,6 +110,7 @@ const validateForm = () => {
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           errors={errors}
+          isLoading={isLoading}
         />
         <Images selected={selected} />
       </div>
@@ -115,6 +130,7 @@ const Form = ({
   handleChange,
   handleSubmit,
   errors,
+  isLoading
 }) => {
   return (
     <form
@@ -244,6 +260,7 @@ const Form = ({
       <motion.button
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
+        disabled={isLoading}
         type="submit"
         className={`${
           selected === "company"
@@ -251,7 +268,7 @@ const Form = ({
             : "bg-white text-foreground"
         } transition-colors duration-[750ms] text-lg text-center rounded-lg w-full py-3 font-semibold`}
       >
-        Submit
+        {isLoading ? <Loader2 className="animate-spin mx-auto"/>: "Submit"}
       </motion.button>
     </form>
   );
