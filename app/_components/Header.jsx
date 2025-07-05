@@ -27,7 +27,6 @@ const Header = () => {
         { href: "/", label: "Home" },
         { href: "#about", label: "About" },
         { href: "#products", label: "Products" },
-        { href: "#faq", label: "Faq" },
       ];
 
   return (
@@ -36,15 +35,15 @@ const Header = () => {
         <div className="  py-4 px-4 md:px-20 flex justify-between items-center relative">
           {/* Logo */}
           <a href="/">
-            {/* <img src="/logo.png" alt="Logo" className="w-28" /> */}
-            <h1 className="font-extrabold text-3xl md:text-5xl text-foreground">
+            <img src="/sparsa-brown.png" alt="Logo" className="w-52" />
+            {/* <h1 className="font-extrabold text-3xl md:text-5xl text-foreground">
               Sparsa
-            </h1>
+            </h1> */}
           </a>
-      <div className="lg:hidden">
-        {/* Hamburger Menu for Mobile */}
-        <Nav LINKS={LINKS} />
-      </div>
+          <div className="lg:hidden">
+            {/* Hamburger Menu for Mobile */}
+            <Nav LINKS={LINKS} />
+          </div>
 
           {/* Navigation Menu for Large Devices */}
           <div className="hidden lg:block">

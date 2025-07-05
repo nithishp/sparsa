@@ -1,39 +1,38 @@
-'use client'
+"use client";
 import { SiInstagram, SiLinkedin, SiTwitter, SiYoutube } from "react-icons/si";
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiArrowRight, FiArrowUpRight } from "react-icons/fi";
 
-
-
-const Nav = ({LINKS}) => {
+const Nav = ({ LINKS }) => {
   const [active, setActive] = useState(false);
 
   return (
     <>
       <HamburgerButton active={active} setActive={setActive} />
-      <AnimatePresence>{active && <LinksOverlay />}</AnimatePresence>
+      <AnimatePresence>
+        {active && <LinksOverlay setActive={setActive} />}
+      </AnimatePresence>
     </>
   );
 };
 export default Nav;
 
-const LinksOverlay = () => {
+const LinksOverlay = ({ setActive }) => {
   return (
     <nav className="fixed right-4 top-4 z-40 h-[calc(100vh_-_32px)] w-[calc(100%_-_32px)] overflow-hidden">
       <Logo />
-      <LinksContainer />
-    
+      <LinksContainer setActive={setActive} />
     </nav>
   );
 };
 
-const LinksContainer = () => {
+const LinksContainer = ({ setActive }) => {
   return (
     <motion.div className="space-y-4 p-12 pl-4 md:pl-20">
       {LINKS.map((l, idx) => {
         return (
-          <NavLink key={l.title} href={l.href} idx={idx}>
+          <NavLink key={l.title} href={l.href} idx={idx} setActive={setActive}>
             {l.title}
           </NavLink>
         );
@@ -42,7 +41,10 @@ const LinksContainer = () => {
   );
 };
 
-const NavLink = ({ children, href, idx }) => {
+const NavLink = ({ children, href, idx, setActive }) => {
+  const handleClick = () => {
+    setActive(false);
+  };
   return (
     <motion.a
       initial={{ opacity: 0, y: -8 }}
@@ -57,6 +59,7 @@ const NavLink = ({ children, href, idx }) => {
       }}
       exit={{ opacity: 0, y: -8 }}
       href={href}
+      onClick={handleClick}
       className="block text-5xl font-semibold text-background transition-colors hover:text-white md:text-7xl"
     >
       {children}.
@@ -122,7 +125,6 @@ const HamburgerButton = ({ active, setActive }) => {
   );
 };
 
-
 const LINKS = [
   {
     title: "home",
@@ -137,11 +139,10 @@ const LINKS = [
     href: "#products",
   },
   {
-    title: "FAQs",
-    href: "#faq",
+    title: "Contact",
+    href: "#contact",
   },
 ];
-
 
 const UNDERLAY_VARIANTS = {
   open: {

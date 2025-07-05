@@ -35,7 +35,7 @@ const Product = () => {
             transition={{ duration: 0.5 }}
             className="font-extrabold text-foreground text-3xl md:text-5xl"
           >
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.{" "}
+            Our Products
           </motion.h1>
         </div>
         <div className="md:hidden">
@@ -109,9 +109,9 @@ const Product = () => {
         className="w-5/12 bg-foreground bg-[url('/pattern-2.png')]  rounded-full h-full aspect-square hidden md:flex  "
       >
         <Image
-          src="/hero-img.png"
-          width={700}
-          height={700}
+          src="/hero-img-2.png"
+          width={1000}
+          height={1000}
           alt=""
           className="-ml-[200px] object-contain"
         />

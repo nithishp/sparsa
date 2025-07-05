@@ -115,7 +115,19 @@ const Content = ({ setFeatureInView, featureInView }) => {
           >
             {featureInView.title}
           </motion.h1>
-            <motion.img src={featureInView.img} variants={childVariants} alt={featureInView.title} className="md:hidden" />
+          {featureInView.subtitle && (
+            <motion.h2
+            variants={childVariants}
+            className="text-3xl font-semibold text-[#645344]"
+          >
+            {featureInView.subtitle}
+          </motion.h2>)}
+          <motion.img
+            src={featureInView.img}
+            variants={childVariants}
+            alt={featureInView.title}
+            className="md:hidden"
+          />
           <motion.div variants={childVariants} className="flex gap-2 mt-3">
             <Heart className="text-foreground" />
             <p className="text-gray-500">
@@ -143,10 +155,12 @@ const Content = ({ setFeatureInView, featureInView }) => {
           </motion.ul>
 
           <motion.div variants={childVariants} className="flex gap-4 mt-2">
-            <h1 className="font-semibold text-3xl">₹ 90</h1>
-            <button className="px-4 py-2 bg-foreground rounded-full text-white">
-              Call Us Now!!
-            </button>
+            <a
+              href="#contact"
+              className="px-4 py-2 bg-foreground rounded-full text-white"
+            >
+              Contact Us!!
+            </a>
           </motion.div>
         </motion.div>
       </div>
@@ -184,6 +198,7 @@ const features = [
     id: 1,
     callout: "#1 Best seller",
     title: "Clove Oil",
+    subtitle: "Geographical Indication Certified",
     description:
       "Clove Oil is a popular essential oil known for its soothing properties. It is commonly used for pain relief, as well as for improving digestion and promoting healthy skin.",
     points: [
@@ -198,7 +213,6 @@ const features = [
   },
   {
     id: 2,
-    callout: "20% Discount",
     title: "Cardamom Oil",
     description:
       "Cardamom Oil is an aromatic essential oil, often used in aromatherapy for its calming and uplifting effects. It’s also known for promoting digestive health.",
@@ -229,8 +243,7 @@ const features = [
   },
   {
     id: 4,
-    callout: "Sold Out",
-    title: "Honey",
+    title: "Organic Honey",
     description:
       "Honey is a natural sweetener with numerous health benefits. It has antibacterial and anti-inflammatory properties and is widely used in skincare, cough remedies, and as an energy booster.",
     points: [
